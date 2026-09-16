@@ -1,0 +1,42 @@
+<resources>
+    <style name="Theme.SmartPantry" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:colorAccent">@color/pantry_green</item>
+        <item name="android:navigationBarColor">@color/pantry_green_dark</item>
+        <item name="android:statusBarColor">@color/pantry_green_dark</item>
+        <item name="android:windowBackground">@color/cream</item>
+    </style>
+
+    <style name="ScreenTitle">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SectionTitle">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BodyText">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="PrimaryButton" parent="android:style/Widget.Material.Button">
+        <item name="android:backgroundTint">@color/pantry_green</item>
+        <item name="android:textColor">@color/surface</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="SecondaryButton" parent="android:style/Widget.Material.Button">
+        <item name="android:backgroundTint">@color/pantry_green_light</item>
+        <item name="android:textColor">@color/pantry_green_dark</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+</resources>
