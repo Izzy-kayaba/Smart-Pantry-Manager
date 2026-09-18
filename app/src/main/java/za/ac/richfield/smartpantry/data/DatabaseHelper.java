@@ -95,8 +95,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<PantryItem> getAllPantryItems() {
         List<PantryItem> items = new ArrayList<>();
+        String orderBy = "CASE WHEN expiry_date IS NULL OR expiry_date = '' THEN 1 ELSE 0 END, "
+                + "expiry_date, name COLLATE NOCASE";
         try (Cursor cursor = getReadableDatabase().query(
-                "pantry_items", null, null, null, null, null, "name COLLATE NOCASE")) {
+                "pantry_items", null, null, null, null, null, orderBy)) {
             while (cursor.moveToNext()) {
                 items.add(pantryItemFromCursor(cursor));
             }
