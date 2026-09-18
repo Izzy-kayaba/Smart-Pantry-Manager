@@ -44,13 +44,20 @@ public class RecipeDetailActivity extends Activity {
                 text.append("\n");
             }
             text.append("- ")
+                    .append(requirement.getIngredientName())
+                    .append(": ")
                     .append(quantityFormat.format(requirement.getQuantity()))
                     .append(" ")
-                    .append(requirement.getUnit())
-                    .append(" ")
-                    .append(requirement.getIngredientName());
+                    .append(formatUnit(requirement.getQuantity(), requirement.getUnit()));
         }
         return text.toString();
+    }
+
+    private String formatUnit(double quantity, String unit) {
+        if ("item".equals(unit) && quantity != 1) {
+            return "items";
+        }
+        return unit;
     }
 
     @Override
