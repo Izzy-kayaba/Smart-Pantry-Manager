@@ -13,6 +13,7 @@
     <string name="back">Back</string>
     <string name="my_pantry">My Pantry</string>
     <string name="pantry_subtitle">Track leftovers and see what you can cook.</string>
+    <string name="zero_pantry_items">0 pantry items</string>
     <string name="empty_pantry_title">Your pantry is empty</string>
     <string name="empty_pantry_message">Add the ingredients you already have at home.</string>
     <string name="add_ingredient_button">+ Add ingredient</string>
@@ -45,5 +46,9 @@
     <plurals name="ingredient_count">
         <item quantity="one">%d ingredient</item>
         <item quantity="other">%d ingredients</item>
+    </plurals>
+    <plurals name="pantry_item_count">
+        <item quantity="one">%d pantry item</item>
+        <item quantity="other">%d pantry items</item>
     </plurals>
 </resources>

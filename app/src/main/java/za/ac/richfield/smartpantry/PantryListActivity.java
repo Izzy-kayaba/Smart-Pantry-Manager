@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import za.ac.richfield.smartpantry.util.NavigationHelper;
 public class PantryListActivity extends Activity implements PantryAdapter.PantryItemActions {
     private DatabaseHelper databaseHelper;
     private ListView pantryList;
+    private TextView pantryCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class PantryListActivity extends Activity implements PantryAdapter.Pantry
 
         databaseHelper = new DatabaseHelper(this);
         pantryList = findViewById(R.id.pantryList);
+        pantryCount = findViewById(R.id.pantryCount);
         View emptyPantry = findViewById(R.id.emptyPantry);
         pantryList.setEmptyView(emptyPantry);
 
@@ -45,6 +48,9 @@ public class PantryListActivity extends Activity implements PantryAdapter.Pantry
 
     private void showPantryItems() {
         List<PantryItem> items = databaseHelper.getAllPantryItems();
+        int itemCount = items.size();
+        pantryCount.setText(getResources().getQuantityString(
+                R.plurals.pantry_item_count, itemCount, itemCount));
         boolean alertsEnabled = getSharedPreferences("smart_pantry_settings", MODE_PRIVATE)
                 .getBoolean("expiry_alerts", true);
         pantryList.setAdapter(new PantryAdapter(this, items, this, alertsEnabled));

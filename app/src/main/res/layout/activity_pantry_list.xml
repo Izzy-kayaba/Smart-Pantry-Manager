@@ -27,6 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/pantry_subtitle" />
+
+        <TextView
+            android:id="@+id/pantryCount"
+            style="@style/BodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/zero_pantry_items"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <FrameLayout
