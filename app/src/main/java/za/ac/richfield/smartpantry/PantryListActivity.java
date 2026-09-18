@@ -66,8 +66,8 @@ public class PantryListActivity extends Activity implements PantryAdapter.Pantry
     @Override
     public void onDelete(PantryItem item) {
         new AlertDialog.Builder(this)
-                .setTitle("Delete ingredient?")
-                .setMessage("Remove " + item.getName() + " from your pantry?")
+                .setTitle(R.string.delete_ingredient_title)
+                .setMessage(getString(R.string.delete_ingredient_message, item.getName()))
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     databaseHelper.deletePantryItem(item.getId());

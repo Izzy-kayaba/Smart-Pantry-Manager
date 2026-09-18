@@ -26,7 +26,7 @@ public class RecipeDetailActivity extends Activity {
         long recipeId = getIntent().getLongExtra(EXTRA_RECIPE_ID, -1);
         Recipe recipe = databaseHelper.getRecipe(recipeId);
         if (recipe == null) {
-            Toast.makeText(this, "Recipe could not be found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.recipe_not_found, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }

@@ -61,7 +61,7 @@ public class AddEditIngredientActivity extends Activity {
     private void loadItem() {
         PantryItem item = databaseHelper.getPantryItem(itemId);
         if (item == null) {
-            Toast.makeText(this, "Ingredient could not be found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ingredient_not_found, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -85,13 +85,13 @@ public class AddEditIngredientActivity extends Activity {
         String expiryDate = expiryInput.getText().toString().trim();
 
         if (name.isEmpty()) {
-            nameInput.setError("Enter an ingredient name.");
+            nameInput.setError(getString(R.string.ingredient_name_required));
             nameInput.requestFocus();
             return;
         }
 
         if (!name.matches("[A-Za-z0-9][A-Za-z0-9 '\\-]{0,59}")) {
-            nameInput.setError("Use letters, numbers, spaces, apostrophes or hyphens.");
+            nameInput.setError(getString(R.string.ingredient_name_invalid));
             nameInput.requestFocus();
             return;
         }
@@ -100,20 +100,20 @@ public class AddEditIngredientActivity extends Activity {
         try {
             quantity = Double.parseDouble(quantityText);
         } catch (NumberFormatException exception) {
-            quantityInput.setError("Enter a valid number.");
+            quantityInput.setError(getString(R.string.quantity_invalid));
             quantityInput.requestFocus();
             return;
         }
 
         if (Double.isNaN(quantity) || Double.isInfinite(quantity)
                 || quantity <= 0 || quantity > 100000) {
-            quantityInput.setError("Quantity must be greater than 0 and at most 100000.");
+            quantityInput.setError(getString(R.string.quantity_out_of_range));
             quantityInput.requestFocus();
             return;
         }
 
         if (!expiryDate.isEmpty() && !isValidDate(expiryDate)) {
-            expiryInput.setError("Use a real date in YYYY-MM-DD format.");
+            expiryInput.setError(getString(R.string.expiry_date_invalid));
             expiryInput.requestFocus();
             return;
         }
@@ -121,10 +121,10 @@ public class AddEditIngredientActivity extends Activity {
         String unit = unitSpinner.getSelectedItem().toString();
         if (itemId == NEW_ITEM_ID) {
             databaseHelper.addPantryItem(name, quantity, unit, expiryDate);
-            Toast.makeText(this, "Ingredient added.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ingredient_added, Toast.LENGTH_SHORT).show();
         } else {
             databaseHelper.updatePantryItem(itemId, name, quantity, unit, expiryDate);
-            Toast.makeText(this, "Ingredient updated.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ingredient_updated, Toast.LENGTH_SHORT).show();
         }
         finish();
     }
