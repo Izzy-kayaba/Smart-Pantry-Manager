@@ -8,6 +8,7 @@
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="ingredient_deleted">%1$s deleted.</string>
     <string name="cancel">Cancel</string>
     <string name="back">Back</string>
     <string name="my_pantry">My Pantry</string>

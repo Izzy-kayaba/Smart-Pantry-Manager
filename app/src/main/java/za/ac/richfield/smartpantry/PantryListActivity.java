@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class PantryListActivity extends Activity implements PantryAdapter.Pantry
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     databaseHelper.deletePantryItem(item.getId());
                     showPantryItems();
+                    Toast.makeText(
+                            this,
+                            getString(R.string.ingredient_deleted, item.getName()),
+                            Toast.LENGTH_SHORT).show();
                 })
                 .show();
     }
