@@ -19,6 +19,10 @@ public class StrictMatchingSelfTest {
         convertsVolumeUnits();
         addsDuplicatePantryRows();
         rejectsIncompatibleUnits();
+        acceptsExactQuantity();
+        normalizesPunctuationAndCase();
+        acceptsGarlicAlias();
+        convertsTablespoonsToMillilitres();
 
         System.out.println("PASS: " + checksRun + " strict-matching checks completed.");
     }
@@ -83,6 +87,35 @@ public class StrictMatchingSelfTest {
         List<RecipeRequirement> recipe = Arrays.asList(requirement("Oil", 15, "ml"));
         check(!IngredientMatcher.recipeMatches(pantry, recipe),
                 "Count units must not be compared with volume units.");
+    }
+
+    private static void acceptsExactQuantity() {
+        List<PantryItem> pantry = Arrays.asList(item("Pasta", 200, "g"));
+        List<RecipeRequirement> recipe = Arrays.asList(requirement("Pasta", 200, "g"));
+        check(IngredientMatcher.recipeMatches(pantry, recipe),
+                "A quantity exactly equal to the requirement should match.");
+    }
+
+    private static void normalizesPunctuationAndCase() {
+        List<PantryItem> pantry = Arrays.asList(item("PEANUT-BUTTER!", 30, "g"));
+        List<RecipeRequirement> recipe = Arrays.asList(
+                requirement("Peanut butter", 30, "g"));
+        check(IngredientMatcher.recipeMatches(pantry, recipe),
+                "Case and punctuation should not prevent a name match.");
+    }
+
+    private static void acceptsGarlicAlias() {
+        List<PantryItem> pantry = Arrays.asList(item("Garlic cloves", 2, "items"));
+        List<RecipeRequirement> recipe = Arrays.asList(requirement("Garlic", 2, "item"));
+        check(IngredientMatcher.recipeMatches(pantry, recipe),
+                "Garlic cloves should match the recipe name garlic.");
+    }
+
+    private static void convertsTablespoonsToMillilitres() {
+        List<PantryItem> pantry = Arrays.asList(item("Oil", 2, "tbsp"));
+        List<RecipeRequirement> recipe = Arrays.asList(requirement("Oil", 30, "ml"));
+        check(IngredientMatcher.recipeMatches(pantry, recipe),
+                "Two tablespoons should equal thirty millilitres.");
     }
 
     private static PantryItem item(String name, double quantity, String unit) {

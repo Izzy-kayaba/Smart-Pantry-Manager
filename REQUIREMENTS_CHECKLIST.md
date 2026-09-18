@@ -25,7 +25,7 @@ This checklist connects each app requirement to its implementation and repeatabl
 ## Verification evidence
 
 - [x] Debug app build: `assembleDebug` completed successfully.
-- [x] Core-rule checks: `verify-matching.ps1` reports `PASS: 8 strict-matching checks completed.`
+- [x] Core-rule checks: `verify-matching.bat` reports `PASS: 12 strict-matching checks completed.`
 - [ ] Manual device/emulator walkthrough: install the APK and follow the demonstration in `README.md`.
 
 The final manual walkthrough remains a separate check because a successful build and Java logic checks do not prove touch behaviour or screen appearance on a real Android device.
