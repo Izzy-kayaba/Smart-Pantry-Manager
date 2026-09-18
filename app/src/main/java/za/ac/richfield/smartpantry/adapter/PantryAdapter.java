@@ -21,6 +21,10 @@ import za.ac.richfield.smartpantry.R;
 import za.ac.richfield.smartpantry.model.PantryItem;
 
 public class PantryAdapter extends BaseAdapter {
+    private static final int EXPIRY_NORMAL = 0;
+    private static final int EXPIRY_SOON = 1;
+    private static final int EXPIRY_PAST = 2;
+
     public interface PantryItemActions {
         void onEdit(PantryItem item);
 
@@ -86,11 +90,19 @@ public class PantryAdapter extends BaseAdapter {
             holder.expiry.setText(R.string.no_expiry_date);
             holder.expiry.setTextColor(Color.parseColor("#5D6A63"));
         } else {
-            boolean expiringSoon = showExpiryAlerts && isWithinThreeDays(item.getExpiryDate());
+            int expiryStatus = showExpiryAlerts
+                    ? getExpiryStatus(item.getExpiryDate())
+                    : EXPIRY_NORMAL;
+            int message = R.string.expires_on;
+            if (expiryStatus == EXPIRY_SOON) {
+                message = R.string.expires_soon;
+            } else if (expiryStatus == EXPIRY_PAST) {
+                message = R.string.expired_on;
+            }
             holder.expiry.setText(holder.expiry.getContext().getString(
-                    expiringSoon ? R.string.expires_soon : R.string.expires_on,
-                    item.getExpiryDate()));
-            holder.expiry.setTextColor(Color.parseColor(expiringSoon ? "#A33A32" : "#5D6A63"));
+                    message, item.getExpiryDate()));
+            holder.expiry.setTextColor(Color.parseColor(
+                    expiryStatus == EXPIRY_NORMAL ? "#5D6A63" : "#A33A32"));
         }
 
         holder.edit.setOnClickListener(view -> actions.onEdit(item));
@@ -98,18 +110,30 @@ public class PantryAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private boolean isWithinThreeDays(String expiryDate) {
+    private int getExpiryStatus(String expiryDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
         format.setLenient(false);
         try {
             Date expiry = format.parse(expiryDate);
-            Calendar end = Calendar.getInstance();
-            end.add(Calendar.DAY_OF_YEAR, 3);
-            Calendar start = Calendar.getInstance();
-            start.add(Calendar.DAY_OF_YEAR, -1);
-            return expiry != null && !expiry.after(end.getTime()) && expiry.after(start.getTime());
+            if (expiry == null) {
+                return EXPIRY_NORMAL;
+            }
+
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+
+            if (expiry.before(today.getTime())) {
+                return EXPIRY_PAST;
+            }
+
+            Calendar warningEnd = (Calendar) today.clone();
+            warningEnd.add(Calendar.DAY_OF_YEAR, 3);
+            return expiry.after(warningEnd.getTime()) ? EXPIRY_NORMAL : EXPIRY_SOON;
         } catch (ParseException exception) {
-            return false;
+            return EXPIRY_NORMAL;
         }
     }
 
