@@ -27,6 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/suggested_recipes_subtitle" />
+
+        <TextView
+            android:id="@+id/recipeCount"
+            style="@style/BodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/zero_matching_recipes"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <FrameLayout

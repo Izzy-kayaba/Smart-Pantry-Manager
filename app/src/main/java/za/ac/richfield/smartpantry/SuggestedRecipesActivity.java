@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import za.ac.richfield.smartpantry.util.NavigationHelper;
 public class SuggestedRecipesActivity extends Activity {
     private DatabaseHelper databaseHelper;
     private ListView recipeList;
+    private TextView recipeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class SuggestedRecipesActivity extends Activity {
 
         databaseHelper = new DatabaseHelper(this);
         recipeList = findViewById(R.id.recipeList);
+        recipeCount = findViewById(R.id.recipeCount);
         View emptyRecipes = findViewById(R.id.emptyRecipes);
         recipeList.setEmptyView(emptyRecipes);
         NavigationHelper.setup(this, NavigationHelper.RECIPES);
@@ -33,6 +36,9 @@ public class SuggestedRecipesActivity extends Activity {
     protected void onResume() {
         super.onResume();
         List<Recipe> recipes = databaseHelper.getSuggestedRecipes();
+        int matchCount = recipes.size();
+        recipeCount.setText(getResources().getQuantityString(
+                R.plurals.recipe_match_count, matchCount, matchCount));
         RecipeAdapter adapter = new RecipeAdapter(this, recipes);
         recipeList.setAdapter(adapter);
         recipeList.setOnItemClickListener((parent, view, position, id) -> {

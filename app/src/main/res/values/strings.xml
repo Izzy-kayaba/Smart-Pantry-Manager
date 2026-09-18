@@ -27,6 +27,7 @@
     <string name="expiry_date_hint">YYYY-MM-DD</string>
     <string name="suggested_recipes_title">Suggested Recipes</string>
     <string name="suggested_recipes_subtitle">Only recipes for which you have every ingredient.</string>
+    <string name="zero_matching_recipes">0 matching recipes</string>
     <string name="empty_recipes_title">No recipes match your pantry yet</string>
     <string name="empty_recipes_message">Add more ingredients or check the available quantities.</string>
     <string name="view_recipe">View recipe  &gt;</string>
@@ -50,5 +51,9 @@
     <plurals name="pantry_item_count">
         <item quantity="one">%d pantry item</item>
         <item quantity="other">%d pantry items</item>
+    </plurals>
+    <plurals name="recipe_match_count">
+        <item quantity="one">%d matching recipe</item>
+        <item quantity="other">%d matching recipes</item>
     </plurals>
 </resources>
