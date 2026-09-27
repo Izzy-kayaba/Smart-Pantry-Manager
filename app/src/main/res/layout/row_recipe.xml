@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/view_recipe"
-        android:textColor="@color/pantry_green"
+        android:textColor="@color/brand_primary"
         android:textStyle="bold" />
 </LinearLayout>

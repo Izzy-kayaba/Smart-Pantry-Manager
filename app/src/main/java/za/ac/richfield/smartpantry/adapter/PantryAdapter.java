@@ -1,7 +1,6 @@
 package za.ac.richfield.smartpantry.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,7 @@ public class PantryAdapter extends BaseAdapter {
 
         if (item.getExpiryDate() == null || item.getExpiryDate().isEmpty()) {
             holder.expiry.setText(R.string.no_expiry_date);
-            holder.expiry.setTextColor(Color.parseColor("#5D6A63"));
+            holder.expiry.setTextColor(holder.expiry.getContext().getColor(R.color.text_secondary));
         } else {
             int expiryStatus = showExpiryAlerts
                     ? getExpiryStatus(item.getExpiryDate())
@@ -101,8 +100,9 @@ public class PantryAdapter extends BaseAdapter {
             }
             holder.expiry.setText(holder.expiry.getContext().getString(
                     message, item.getExpiryDate()));
-            holder.expiry.setTextColor(Color.parseColor(
-                    expiryStatus == EXPIRY_NORMAL ? "#5D6A63" : "#A33A32"));
+            int expiryColor = expiryStatus == EXPIRY_NORMAL
+                    ? R.color.text_secondary : R.color.danger;
+            holder.expiry.setTextColor(holder.expiry.getContext().getColor(expiryColor));
         }
 
         holder.edit.setOnClickListener(view -> actions.onEdit(item));
